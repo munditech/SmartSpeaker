@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./SmartSpeaker/libs/javax.inject.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/SmartSpeaker/libs/javax.inject.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

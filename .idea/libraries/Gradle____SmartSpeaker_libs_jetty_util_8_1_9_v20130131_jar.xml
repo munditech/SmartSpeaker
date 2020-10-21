@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./SmartSpeaker/libs/jetty-util-8.1.9.v20130131.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/SmartSpeaker/libs/jetty-util-8.1.9.v20130131.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

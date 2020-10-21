@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SmartRobot.iml" filepath="$PROJECT_DIR$/.idea/modules/SmartRobot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DroidDLNA/SmartRobot.DroidDLNA.iml" filepath="$PROJECT_DIR$/.idea/modules/DroidDLNA/SmartRobot.DroidDLNA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MundiDlna/SmartRobot.MundiDlna.iml" filepath="$PROJECT_DIR$/.idea/modules/MundiDlna/SmartRobot.MundiDlna.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SmartSpeaker/SmartRobot.SmartDlnaTest.iml" filepath="$PROJECT_DIR$/.idea/modules/SmartSpeaker/SmartRobot.SmartDlnaTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/smartspeaker/SmartRobot.SmartSpeaker.iml" filepath="$PROJECT_DIR$/.idea/modules/smartspeaker/SmartRobot.SmartSpeaker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SmartPlayer/SmartRobot.SmartVoiceTest.iml" filepath="$PROJECT_DIR$/.idea/modules/SmartPlayer/SmartRobot.SmartVoiceTest.iml" />
+    </modules>
+  </component>
+</project>

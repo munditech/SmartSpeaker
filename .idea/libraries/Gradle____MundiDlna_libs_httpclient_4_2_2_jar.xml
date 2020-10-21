@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./MundiDlna/libs/httpclient-4.2.2.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MundiDlna/libs/httpclient-4.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
