@@ -1,0 +1,6 @@
+include ':SmartSpeaker'
+include ':SmartDlnaTest'
+include ':MundiDlna'
+include ':DroidDLNA'
+include ':SmartVoiceTest'
+rootProject.name = "SmartRobot"
