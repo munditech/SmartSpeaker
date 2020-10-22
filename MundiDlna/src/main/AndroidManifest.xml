@@ -123,7 +123,7 @@
 
         <!--
         <activity
-            android:name="com.zxt.dlna.dmc.RemoteVideoPlay"
+            android:name=".dmc.RemoteVideoPlay"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>

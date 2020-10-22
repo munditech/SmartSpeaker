@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: ./DroidDLNA/libs/jetty-http-8.1.9.v20130131.jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/DroidDLNA/libs/jetty-http-8.1.9.v20130131.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

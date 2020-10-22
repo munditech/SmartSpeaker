@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: ./DroidDLNA/libs/seamless-util-1.0-alpha2.jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/DroidDLNA/libs/seamless-util-1.0-alpha2.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

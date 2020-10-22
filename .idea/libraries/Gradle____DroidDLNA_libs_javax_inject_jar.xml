@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: ./DroidDLNA/libs/javax.inject.jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/DroidDLNA/libs/javax.inject.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
