@@ -115,34 +115,6 @@ public class DevicesActivity extends AppCompatActivity {
 
 			Log.v(LOGTAG, "Connected to UPnP Service");
 
-			if (mediaServer == null
-					&& SettingActivity.getDmsOn(DevicesActivity.this)) {
-				try {
-					mediaServer = new MediaServer(DevicesActivity.this);
-					upnpService.getRegistry()
-							.addDevice(mediaServer.getDevice());
-					DeviceItem localDevItem = new DeviceItem(
-							mediaServer.getDevice());
-
-					deviceListRegistryListener.deviceAdded(localDevItem);
-					new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							prepareMediaServer();
-						}
-					}).start();
-
-				} catch (Exception ex) {
-					// TODO: handle exception
-					log.log(Level.SEVERE, "Creating demo device failed", ex);
-					Toast.makeText(DevicesActivity.this,
-							R.string.create_demo_failed, Toast.LENGTH_SHORT)
-							.show();
-					return;
-				}
-			}
-
 			if (SettingActivity.getRenderOn(DevicesActivity.this)) {
 				ZxtMediaRenderer mediaRenderer = new ZxtMediaRenderer(1,
 						DevicesActivity.this);

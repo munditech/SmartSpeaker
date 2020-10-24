@@ -193,6 +193,11 @@ public class DMCControl {
 				break;
 			}
 
+			case DMCControlMessage.COMMAND: {
+				sendCommand();
+				break;
+			}
+
 			}
 		}
 	};
@@ -426,6 +431,26 @@ public class DMCControl {
 				this.upnpService.getControlPoint().execute(
 						new SetAVTransportURIActionCallback(localService,
 								this.uriString, this.metaData, mHandle,
+								this.controlType));
+			} else {
+				Log.e("null", "null");
+			}
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+	}
+
+	public void sendCommand() {
+		String cmdstr = this.uriString;
+		Log.d("DMCControl", "sendCommand() cmdstr=" + cmdstr);
+		try {
+			Service localService = this.executeDeviceItem.getDevice()
+					.findService(new UDAServiceType("AVTransport"));
+			if (localService != null) {
+				Log.e("set command", "set command" + cmdstr);
+				this.upnpService.getControlPoint().execute(
+						new SetAVTransportURIActionCallback(localService,
+								cmdstr, "text/plain", mHandle,
 								this.controlType));
 			} else {
 				Log.e("null", "null");

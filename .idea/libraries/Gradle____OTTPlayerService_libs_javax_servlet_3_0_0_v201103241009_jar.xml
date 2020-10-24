@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./OTTPlayerService/libs/javax.servlet-3.0.0.v201103241009.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/OTTPlayerService/libs/javax.servlet-3.0.0.v201103241009.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

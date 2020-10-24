@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./OTTPlayerService/libs/cdi-api.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/OTTPlayerService/libs/cdi-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
