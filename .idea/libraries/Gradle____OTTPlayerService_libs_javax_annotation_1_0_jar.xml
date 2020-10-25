@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: ./OTTPlayerService/libs/javax.annotation_1.0.jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/OTTPlayerService/libs/javax.annotation_1.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

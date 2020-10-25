@@ -1,4 +1,4 @@
-include ':OTTPlayerService'
+include ':OTTService'
 include ':SmartSpeaker'
 include ':MundiDlna'
 include ':SmartVoiceTest'
