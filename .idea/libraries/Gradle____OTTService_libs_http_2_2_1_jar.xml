@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./OTTService/libs/http-2.2.1.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/OTTService/libs/http-2.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

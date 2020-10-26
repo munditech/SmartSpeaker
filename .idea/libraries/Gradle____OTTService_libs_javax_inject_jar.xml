@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./OTTService/libs/javax.inject.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/OTTService/libs/javax.inject.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

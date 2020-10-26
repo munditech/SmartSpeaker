@@ -50,6 +50,10 @@ public class DMCControlMessage {
 
 	public static final int SETMUTESUC = 23;
 
+	public static final int GETCOMMAND = 24;
+
+	public static final int SETCOMMAND = 25;
+
 	public static final int IMAGE = 1;
 
 	public static final int AUDIO = 2;

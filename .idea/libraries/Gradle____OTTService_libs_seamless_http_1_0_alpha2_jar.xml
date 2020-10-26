@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./OTTService/libs/seamless-http-1.0-alpha2.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/OTTService/libs/seamless-http-1.0-alpha2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

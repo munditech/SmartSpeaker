@@ -9,18 +9,18 @@
 package tk.munditv.smartspeaker.util;
 
 public class Action {
-	public static final String DMR = "com.zxt.droiddlna.action.dmr";
+	public static final String DMR = "tk.munditv.smartspeaker.action.dmr";
 
-	public static final String PLAY = "com.zxt.droiddlna.action.play";
-	public static final String PAUSE = "com.zxt.droiddlna.action.pause";
-	public static final String STOP = "com.zxt.droiddlna.action.stop";
-	public static final String SEEK = "com.zxt.droiddlna.action.seek";
-	public static final String SET_VOLUME = "com.zxt.droiddlna.action.setvolume";
-	public static final String VIDEO_PLAY = "com.zxt.droiddlna.action.video.play";
-	public static final String VIDEO_PLAY_FINISHED = "com.zxt.droiddlna.action.video.playfinished";
-	public static final String PLAY_ERR_IMAGE = "com.zxt.droiddlna.action.image.play.error";
-	public static final String PLAY_ERR_AUDIO = "com.zxt.droiddlna.action.audio.play.error";
-	public static final String PLAY_ERR_VIDEO = "com.zxt.droiddlna.action.video.play.error";
-	public static final String PLAY_UPDATE = "com.zxt.droiddlna.action.play.update";
+	public static final String PLAY = "tk.munditv.smartspeaker.action.play";
+	public static final String PAUSE = "tk.munditv.smartspeaker.action.pause";
+	public static final String STOP = "tk.munditv.smartspeaker.action.stop";
+	public static final String SEEK = "tk.munditv.smartspeaker.action.seek";
+	public static final String SET_VOLUME = "tk.munditv.smartspeaker.action.setvolume";
+	public static final String VIDEO_PLAY = "tk.munditv.smartspeaker.action.video.play";
+	public static final String VIDEO_PLAY_FINISHED = "tk.munditv.smartspeaker.action.video.playfinished";
+	public static final String PLAY_ERR_IMAGE = "tk.munditv.smartspeaker.action.image.play.error";
+	public static final String PLAY_ERR_AUDIO = "tk.munditv.smartspeaker.action.audio.play.error";
+	public static final String PLAY_ERR_VIDEO = "tk.munditv.smartspeaker.action.video.play.error";
+	public static final String PLAY_UPDATE = "tk.munditv.smartspeaker.action.play.update";
 
 }

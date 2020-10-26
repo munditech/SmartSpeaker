@@ -46,6 +46,8 @@ public class DMCControl {
 
 	public boolean isMute = false;
 
+	public String commandString;
+
 	private String metaData;
 
 	String relTime;
@@ -193,6 +195,18 @@ public class DMCControl {
 				break;
 			}
 
+			case DMCControlMessage.GETCOMMAND: {
+				DMCControl.this.commandString = msg.getData().getString("command");
+				DMCControl.this.setMuteToActivity(isMute);
+				break;
+			}
+
+			case DMCControlMessage.SETCOMMAND: {
+				commandString = msg.getData().getString("command");
+				setCommand(commandString);
+				break;
+			}
+
 			}
 		}
 	};
@@ -279,6 +293,19 @@ public class DMCControl {
 				this.upnpService.getControlPoint().execute(
 						new GetMuteCallback(localService, mHandle));
 			} else {
+			}
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+	}
+
+	public void getCommand() {
+		try {
+			Service localService = this.executeDeviceItem.getDevice()
+					.findService(new UDAServiceType("RenderingControl"));
+			if (localService != null) {
+				this.upnpService.getControlPoint().execute(
+						new GetCommandCallback(localService, mHandle));
 			}
 		} catch (Exception localException) {
 			localException.printStackTrace();
@@ -461,6 +488,22 @@ public class DMCControl {
 		}
 	}
 
+	public void setCommand(String paramString) {
+		try {
+			Service localService = this.executeDeviceItem.getDevice()
+					.findService(new UDAServiceType("RenderingControl"));
+			if (localService != null) {
+				ControlPoint localControlPoint = this.upnpService
+						.getControlPoint();
+				localControlPoint.execute(new SetCommandCallback(localService,
+						paramString, mHandle));
+			} else {
+				Log.e("null", "null");
+			}
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+	}
 	public void setMuteToActivity(boolean paramBoolean) {
 		if (activity instanceof ControlActivity) {
 			((ControlActivity) activity).setVideoRemoteMuteState(paramBoolean);

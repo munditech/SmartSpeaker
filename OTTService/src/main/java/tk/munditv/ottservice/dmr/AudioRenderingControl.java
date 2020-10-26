@@ -19,19 +19,19 @@ public class AudioRenderingControl extends AbstractAudioRenderingControl {
 
     final private static Logger log = Logger.getLogger(AudioRenderingControl.class.getName());
 
-    final private Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> players;
+    final private Map<UnsignedIntegerFourBytes, MOSMediaPlayer> players;
 
-    protected AudioRenderingControl(LastChange lastChange, Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> players) {
+    protected AudioRenderingControl(LastChange lastChange, Map<UnsignedIntegerFourBytes, MOSMediaPlayer> players) {
         super(lastChange);
         this.players = players;
     }
 
-    protected Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> getPlayers() {
+    protected Map<UnsignedIntegerFourBytes, MOSMediaPlayer> getPlayers() {
         return players;
     }
 
-    protected ZxtMediaPlayer getInstance(UnsignedIntegerFourBytes instanceId) throws RenderingControlException {
-        ZxtMediaPlayer player = getPlayers().get(instanceId);
+    protected MOSMediaPlayer getInstance(UnsignedIntegerFourBytes instanceId) throws RenderingControlException {
+        MOSMediaPlayer player = getPlayers().get(instanceId);
         if (player == null) {
             throw new RenderingControlException(RenderingControlErrorCode.INVALID_INSTANCE_ID);
         }
@@ -55,6 +55,19 @@ public class AudioRenderingControl extends AbstractAudioRenderingControl {
         checkChannel(channelName);
         log.fine("Setting backend mute to: " + desiredMute);
         getInstance(instanceId).setMute(desiredMute);
+    }
+
+    @Override
+    public String getCommand(UnsignedIntegerFourBytes instanceId, String channelName) throws RenderingControlException {
+        checkChannel(channelName);
+        return getInstance(instanceId).getCommand();
+    }
+
+    @Override
+    public void setCommand(UnsignedIntegerFourBytes instanceId, String channelName, String desiredCommand) throws RenderingControlException {
+        checkChannel(channelName);
+        log.fine("Setting command to: " + desiredCommand);
+        getInstance(instanceId).setCommand(desiredCommand);
     }
 
     @Override

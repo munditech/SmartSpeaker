@@ -19,7 +19,7 @@ public class RenderService extends Service {
 
     private boolean isopen = false;
 
-    protected ZxtMediaRenderer mediaRenderer = null;
+    protected MOSMediaRenderer mediaRenderer = null;
 
     private AndroidUpnpService upnpService = null;
 
@@ -51,7 +51,13 @@ public class RenderService extends Service {
         closeMediaRenderer();
     }
 
-    public void onStart(Intent paramIntent, int paramInt) {
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        onStart2(intent, startId);
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void onStart2(Intent paramIntent, int paramInt) {
         super.onStart(paramIntent, paramInt);
         if (!this.isopen) {
             this.isopen = true;

@@ -20,7 +20,14 @@ public class RenderPlayerService extends Service {
 		return null;
 	}
 
-	public void onStart(Intent intent, int startId) {
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		onStart2(intent, startId);
+		return super.onStartCommand(intent, flags, startId);
+	}
+
+	public void onStart2(Intent intent, int startId) {
 		//xgf fix bug null point
 		if (null != intent) {
 			super.onStart(intent, startId);
