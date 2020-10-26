@@ -1,5 +1,4 @@
-package tk.munditv.ottservice.dmc;
-
+package tk.munditv.mundidlna.dmc;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.support.renderingcontrol.callback.GetCommand;
 
 public class GetCommandCallback extends GetCommand {
-
     private Handler handler;
 
     public GetCommandCallback(Service paramService, Handler paramHandler) {
@@ -27,7 +25,7 @@ public class GetCommandCallback extends GetCommand {
 
     public void received(ActionInvocation paramActionInvocation,
                          String paramString) {
-        Log.i("DMC", "get command string:" + paramString);
+        Log.i("DMC", "get command status:" + paramString);
         Message localMessage = new Message();
         localMessage.what = DMCControlMessage.SETCOMMAND;
         Bundle localBundle = new Bundle();

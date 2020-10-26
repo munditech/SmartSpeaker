@@ -1,4 +1,4 @@
-package tk.munditv.ottservice.dmc;
+package org.fourthline.cling.support.renderingcontrol.callback;
 
 import org.fourthline.cling.controlpoint.ActionCallback;
 import org.fourthline.cling.model.action.ActionInvocation;

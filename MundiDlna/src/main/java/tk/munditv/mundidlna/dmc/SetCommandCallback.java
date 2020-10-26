@@ -1,4 +1,4 @@
-package tk.munditv.ottservice.dmc;
+package tk.munditv.mundidlna.dmc;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +11,7 @@ import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.support.renderingcontrol.callback.SetCommand;
 
 public class SetCommandCallback extends SetCommand {
-    private String commandString;
+    private String desiredCommand;
 
     private Handler handler;
 
@@ -19,7 +19,7 @@ public class SetCommandCallback extends SetCommand {
                             Handler paramHandler) {
         super(paramService, paramString);
         this.handler = paramHandler;
-        this.commandString = paramString;
+        this.desiredCommand = paramString;
     }
 
     public void failure(ActionInvocation paramActionInvocation,
@@ -32,7 +32,7 @@ public class SetCommandCallback extends SetCommand {
         Message localMessage = new Message();
         localMessage.what = DMCControlMessage.SETCOMMANDSUC;
         Bundle localBundle = new Bundle();
-        localBundle.putString("command", commandString);
+        localBundle.putString("mute", desiredCommand);
         localMessage.setData(localBundle);
         this.handler.sendMessage(localMessage);
     }

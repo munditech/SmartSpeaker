@@ -2,6 +2,7 @@
 package tk.munditv.ottservice.dmr;
 
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -36,7 +37,7 @@ public class MOSMediaPlayer {
 
     final private static Logger log = Logger.getLogger(MOSMediaPlayer.class.getName());
 
-    private static final String TAG = "Mundi>MediaPlayer";
+    private static final String TAG = "MundiMediaPlayer";
 
     final private UnsignedIntegerFourBytes instanceId;
     final private LastChange avTransportLastChange;
@@ -350,6 +351,15 @@ public class MOSMediaPlayer {
     public void setCommand(String command) {
         Log.i(TAG, "setCommand " + command);
         this.command = command;
+
+        if (command.toLowerCase().contains("youtube")) {
+            Intent intent = mContext.getPackageManager()
+                    .getLaunchIntentForPackage("com.google.android.youtube");
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
+        }
+
     }
 
     public void play() {

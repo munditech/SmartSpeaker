@@ -197,11 +197,16 @@ public class DMCControl {
 
 			case DMCControlMessage.GETCOMMAND: {
 				DMCControl.this.commandString = msg.getData().getString("command");
-				DMCControl.this.setMuteToActivity(isMute);
 				break;
 			}
 
 			case DMCControlMessage.SETCOMMAND: {
+				commandString = msg.getData().getString("command");
+				setCommand(commandString);
+				break;
+			}
+
+			case DMCControlMessage.SETCOMMANDSUC: {
 				commandString = msg.getData().getString("command");
 				setCommand(commandString);
 				break;
