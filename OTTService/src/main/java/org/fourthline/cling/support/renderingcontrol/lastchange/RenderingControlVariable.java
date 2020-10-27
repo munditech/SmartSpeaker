@@ -46,6 +46,7 @@ public class RenderingControlVariable {
         add(VerticalKeystone.class);
         add(Mute.class);
         add(Command.class);
+        add(Packages.class);
         add(VolumeDB.class);
         add(Volume.class);
         add(Loudness.class);
@@ -197,6 +198,16 @@ public class RenderingControlVariable {
         }
 
         public Command(Map.Entry<String, String>[] attributes) {
+            super(attributes);
+        }
+    }
+
+    public static class Packages extends EventedValueChannelPackages {
+        public Packages(ChannelPackages value) {
+            super(value);
+        }
+
+        public Packages(Map.Entry<String, String>[] attributes) {
             super(attributes);
         }
     }

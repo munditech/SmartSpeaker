@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.fourthline.cling.model.ModelUtil;
 import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
 import org.fourthline.cling.support.avtransport.lastchange.AVTransportVariable;
@@ -344,6 +346,17 @@ public class MOSMediaPlayer {
         Log.i(TAG, "getVolume " + v);
         return v;
     }
+
+    public String getPackages() {
+        final int max = BaseApplication.apps.size();
+        for (int i = 0; i < max; i++) {
+            PInfo p = BaseApplication.apps.get(i);
+            Log.d(TAG, "get package name = " + p.getAppname());
+        }
+        String jstring = new Gson().toJson(BaseApplication.apps);
+        return jstring;
+    }
+
 
     public String getCommand() {
         Log.i(TAG, "getCommand " + command);

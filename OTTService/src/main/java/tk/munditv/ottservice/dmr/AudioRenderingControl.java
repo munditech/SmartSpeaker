@@ -64,6 +64,12 @@ public class AudioRenderingControl extends AbstractAudioRenderingControl {
     }
 
     @Override
+    public String getPackages(UnsignedIntegerFourBytes instanceId, String channelName) throws RenderingControlException {
+        checkChannel(channelName);
+        return getInstance(instanceId).getPackages();
+    }
+
+    @Override
     public void setCommand(UnsignedIntegerFourBytes instanceId, String channelName, String desiredCommand) throws RenderingControlException {
         checkChannel(channelName);
         log.fine("Setting command to: " + desiredCommand);

@@ -34,6 +34,7 @@ import org.fourthline.cling.support.model.VolumeDBRange;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelCommand;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelLoudness;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelMute;
+import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelPackages;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelVolume;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelVolumeDB;
 import org.fourthline.cling.support.renderingcontrol.lastchange.RenderingControlLastChangeParser;
@@ -60,6 +61,10 @@ import java.beans.PropertyChangeSupport;
                 datatype = "boolean"),
         @UpnpStateVariable(
                 name = "Command",
+                sendEvents = false,
+                datatype = "string"),
+        @UpnpStateVariable(
+                name = "Packages",
                 sendEvents = false,
                 datatype = "string"),
         @UpnpStateVariable(
@@ -132,6 +137,7 @@ public abstract class AbstractAudioRenderingControl implements LastChangeDelegat
                     instanceId,
                     new RenderingControlVariable.Mute(new ChannelMute(channel, getMute(instanceId, channelString))),
                     new RenderingControlVariable.Command(new ChannelCommand(channel, getCommand(instanceId, channelString))),
+                    new RenderingControlVariable.Packages(new ChannelPackages(channel, getPackages(instanceId, channelString))),
                     new RenderingControlVariable.Loudness(new ChannelLoudness(channel, getLoudness(instanceId, channelString))),
                     new RenderingControlVariable.Volume(new ChannelVolume(channel, getVolume(instanceId, channelString).getValue().intValue())),
                     new RenderingControlVariable.VolumeDB(new ChannelVolumeDB(channel, getVolumeDB(instanceId, channelString))),
@@ -170,6 +176,10 @@ public abstract class AbstractAudioRenderingControl implements LastChangeDelegat
     @UpnpAction(out = @UpnpOutputArgument(name = "CurrentCommand", stateVariable = "Command"))
     public abstract String getCommand(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
                                     @UpnpInputArgument(name = "Channel") String channelName) throws RenderingControlException;
+
+    @UpnpAction(out = @UpnpOutputArgument(name = "CurrentPackages", stateVariable = "Packages"))
+    public abstract String getPackages(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
+                                      @UpnpInputArgument(name = "Channel") String channelName) throws RenderingControlException;
 
     @UpnpAction
     public abstract void setCommand(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,

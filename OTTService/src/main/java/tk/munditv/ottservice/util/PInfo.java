@@ -8,13 +8,15 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+
 public class PInfo {
     private final static String TAG = "PInfo";
     private String appname = "";
     private String pname = "";
     private String versionName = "";
     private int versionCode = 0;
-    //private byte[] icon;
+    private byte[] icon;
     //private ActivityInfo[] activityInfos;
     //private ProviderInfo[] providerInfos;
     //private ServiceInfo[] serviceInfos;
@@ -24,13 +26,14 @@ public class PInfo {
         pname = packageInfo.packageName;
         versionName = packageInfo.versionName;
         versionCode = packageInfo.versionCode;
-/*
+
         Drawable iconDrawable = packageInfo.applicationInfo.loadIcon(context.getPackageManager());
         Bitmap bitmap = drawableToBitmap(iconDrawable);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.WEBP,25, stream);
         icon = stream.toByteArray();
 
+/*
         activityInfos = packageInfo.activities;
         providerInfos = packageInfo.providers;
         serviceInfos = packageInfo.services;
@@ -59,11 +62,11 @@ public class PInfo {
     public int getVersionCode() {
         return versionCode;
     }
-/*
+
     public byte[] getIcon() {
         return icon;
     }
-
+/*
     public ActivityInfo[] getActivityInfos() {
         return activityInfos;
     }

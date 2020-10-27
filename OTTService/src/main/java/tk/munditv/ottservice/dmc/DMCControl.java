@@ -48,6 +48,8 @@ public class DMCControl {
 
 	public String commandString;
 
+	public String packagesString;
+
 	private String metaData;
 
 	String relTime;
@@ -212,6 +214,13 @@ public class DMCControl {
 				break;
 			}
 
+			case DMCControlMessage.GETPACKAGES: {
+				DMCControl.this.packagesString = msg.getData().getString("packages");
+				//setCommand(commandString);
+				getPackages();
+				break;
+			}
+
 			}
 		}
 	};
@@ -311,6 +320,19 @@ public class DMCControl {
 			if (localService != null) {
 				this.upnpService.getControlPoint().execute(
 						new GetCommandCallback(localService, mHandle));
+			}
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+	}
+
+	public void getPackages() {
+		try {
+			Service localService = this.executeDeviceItem.getDevice()
+					.findService(new UDAServiceType("RenderingControl"));
+			if (localService != null) {
+				this.upnpService.getControlPoint().execute(
+						new GetPackagesCallback(localService, mHandle));
 			}
 		} catch (Exception localException) {
 			localException.printStackTrace();
