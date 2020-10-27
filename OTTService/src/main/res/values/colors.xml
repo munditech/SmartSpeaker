@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -55,4 +59,7 @@
     <color name="listview_bottom_line">#BCBCBC</color>
     <color name="listview_top_line_old">#e8e8e8</color>
     <color name="listview_bottom_line_old">#9f9e9e</color>
+
+
+    <color name="black_overlay">#66000000</color>
 </resources>

@@ -28,6 +28,7 @@ import org.fourthline.cling.support.renderingcontrol.lastchange.RenderingControl
 import java.net.URI;
 import java.util.logging.Logger;
 
+import tk.munditv.ottservice.activity.YTPlayerActivity;
 import tk.munditv.ottservice.application.BaseApplication;
 import tk.munditv.ottservice.dmp.GPlayer;
 import tk.munditv.ottservice.dmp.GPlayer.MediaListener;
@@ -366,7 +367,18 @@ public class MOSMediaPlayer {
     public void setCommand(String command) {
         Log.i(TAG, "setCommand " + command);
         this.command = command;
-        checkPackage(command);
+        if (command.toLowerCase().contains("[ytvideo]=")) {
+            String videoid = command.substring(10);
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setClassName("tk.munditv.ottservice",
+            "tk.munditv.ottservice.activity.YTPlayerActivity");
+            intent.putExtra(Intent.EXTRA_TEXT, videoid);
+            intent.setType("text/plain");
+            Log.d(TAG, "videoid = " + videoid);
+            mContext.startActivity(intent);
+        } else {
+            checkPackage(command);
+        }
     }
 
     private void checkPackage(String msg) {
