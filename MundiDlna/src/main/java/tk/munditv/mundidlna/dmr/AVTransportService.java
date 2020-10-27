@@ -3,8 +3,6 @@ package tk.munditv.mundidlna.dmr;
 
 import android.util.Log;
 
-import tk.munditv.mundidlna.util.Utils;
-
 import org.fourthline.cling.model.types.ErrorCode;
 import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
 import org.fourthline.cling.support.avtransport.AVTransportErrorCode;
@@ -27,6 +25,8 @@ import java.net.URI;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import tk.munditv.mundidlna.util.Utils;
+
 /**
  * @author offbye
  */
@@ -36,19 +36,19 @@ public class AVTransportService extends AbstractAVTransportService {
 
     private static final String TAG = "GstAVTransportService";
 
-    final private Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> players;
+    final private Map<UnsignedIntegerFourBytes, MOSMediaPlayer> players;
 
-    protected AVTransportService(LastChange lastChange, Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> players) {
+    protected AVTransportService(LastChange lastChange, Map<UnsignedIntegerFourBytes, MOSMediaPlayer> players) {
         super(lastChange);
         this.players = players;
     }
 
-    protected Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> getPlayers() {
+    protected Map<UnsignedIntegerFourBytes, MOSMediaPlayer> getPlayers() {
         return players;
     }
 
-    protected ZxtMediaPlayer getInstance(UnsignedIntegerFourBytes instanceId) throws AVTransportException {
-        ZxtMediaPlayer player = getPlayers().get(instanceId);
+    protected MOSMediaPlayer getInstance(UnsignedIntegerFourBytes instanceId) throws AVTransportException {
+        MOSMediaPlayer player = getPlayers().get(instanceId);
         if (player == null) {
             throw new AVTransportException(AVTransportErrorCode.INVALID_INSTANCE_ID);
         }
@@ -150,7 +150,7 @@ public class AVTransportService extends AbstractAVTransportService {
 
     @Override
     public void seek(UnsignedIntegerFourBytes instanceId, String unit, String target) throws AVTransportException {
-        final ZxtMediaPlayer player = getInstance(instanceId);
+        final MOSMediaPlayer player = getInstance(instanceId);
         SeekMode seekMode;
         try {
             seekMode = SeekMode.valueOrExceptionOf(unit);

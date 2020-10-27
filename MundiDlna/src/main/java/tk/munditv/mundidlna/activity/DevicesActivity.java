@@ -26,12 +26,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import tk.munditv.mundidlna.R;
 import tk.munditv.mundidlna.application.BaseApplication;
 import tk.munditv.mundidlna.dmp.DeviceItem;
-import tk.munditv.mundidlna.dmr.ZxtMediaRenderer;
+import tk.munditv.mundidlna.dmr.MOSMediaRenderer;
 import tk.munditv.mundidlna.dms.ContentNode;
 import tk.munditv.mundidlna.dms.ContentTree;
 import tk.munditv.mundidlna.dms.MediaServer;
@@ -144,7 +142,7 @@ public class DevicesActivity extends Activity {
 			}
 
 			if (SettingActivity.getRenderOn(DevicesActivity.this)) {
-				ZxtMediaRenderer mediaRenderer = new ZxtMediaRenderer(1,
+				MOSMediaRenderer mediaRenderer = new MOSMediaRenderer(1,
 						DevicesActivity.this);
 				upnpService.getRegistry().addDevice(mediaRenderer.getDevice());
 				deviceListRegistryListener.dmrAdded(new DeviceItem(

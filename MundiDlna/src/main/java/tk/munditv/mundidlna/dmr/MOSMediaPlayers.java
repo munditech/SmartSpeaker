@@ -13,16 +13,16 @@ import java.util.logging.Logger;
 /**
  * @author offbye
  */
-public class ZxtMediaPlayers extends ConcurrentHashMap<UnsignedIntegerFourBytes, ZxtMediaPlayer> {
+public class MOSMediaPlayers extends ConcurrentHashMap<UnsignedIntegerFourBytes, MOSMediaPlayer> {
 
-    final private static Logger log = Logger.getLogger(ZxtMediaPlayers.class.getName());
+    final private static Logger log = Logger.getLogger(MOSMediaPlayers.class.getName());
 
     final protected LastChange avTransportLastChange;
     final protected LastChange renderingControlLastChange;
     private Context mContext;
 
 
-    public ZxtMediaPlayers(int numberOfPlayers,
+    public MOSMediaPlayers(int numberOfPlayers,
                            Context context,
                            LastChange avTransportLastChange,
                            LastChange renderingControlLastChange) {
@@ -33,8 +33,8 @@ public class ZxtMediaPlayers extends ConcurrentHashMap<UnsignedIntegerFourBytes,
 
         for (int i = 0; i < numberOfPlayers; i++) {
 
-            ZxtMediaPlayer player =
-                    new ZxtMediaPlayer(
+            MOSMediaPlayer player =
+                    new MOSMediaPlayer(
                             new UnsignedIntegerFourBytes(i),
                             mContext,
                             avTransportLastChange,
@@ -54,11 +54,11 @@ public class ZxtMediaPlayers extends ConcurrentHashMap<UnsignedIntegerFourBytes,
         }
     }
 
-    protected void onPlay(ZxtMediaPlayer player) {
+    protected void onPlay(MOSMediaPlayer player) {
         log.fine("Player is playing: " + player.getInstanceId());
     }
 
-    protected void onStop(ZxtMediaPlayer player) {
+    protected void onStop(MOSMediaPlayer player) {
         log.fine("Player is stopping: " + player.getInstanceId());
     }
 }

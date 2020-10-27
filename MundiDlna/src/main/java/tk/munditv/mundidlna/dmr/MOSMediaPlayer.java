@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.util.Log;
 
-import tk.munditv.mundidlna.dmp.GPlayer;
-import tk.munditv.mundidlna.dmp.GPlayer.MediaListener;
-import tk.munditv.mundidlna.util.Action;
+import com.google.gson.Gson;
 
 import org.fourthline.cling.model.ModelUtil;
 import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
@@ -29,14 +27,20 @@ import org.fourthline.cling.support.renderingcontrol.lastchange.RenderingControl
 import java.net.URI;
 import java.util.logging.Logger;
 
+import tk.munditv.mundidlna.application.BaseApplication;
+import tk.munditv.mundidlna.dmp.GPlayer;
+import tk.munditv.mundidlna.dmp.GPlayer.MediaListener;
+import tk.munditv.mundidlna.util.Action;
+import tk.munditv.mundidlna.util.PInfo;
+
 /**
  * @author offbye
  */
-public class ZxtMediaPlayer {
+public class MOSMediaPlayer {
 
-    final private static Logger log = Logger.getLogger(ZxtMediaPlayer.class.getName());
+    final private static Logger log = Logger.getLogger(MOSMediaPlayer.class.getName());
 
-    private static final String TAG = "GstMediaPlayer";
+    private static final String TAG = "MundiMediaPlayer";
 
     final private UnsignedIntegerFourBytes instanceId;
     final private LastChange avTransportLastChange;
@@ -49,10 +53,11 @@ public class ZxtMediaPlayer {
     private PositionInfo currentPositionInfo = new PositionInfo();
     private MediaInfo currentMediaInfo = new MediaInfo();
     private double storedVolume;
-    
+    private String command = null;
+
     private Context mContext;
 
-    public ZxtMediaPlayer(UnsignedIntegerFourBytes instanceId,Context context,
+    public MOSMediaPlayer(UnsignedIntegerFourBytes instanceId, Context context,
                           LastChange avTransportLastChange,
                           LastChange renderingControlLastChange) {
         super();
@@ -312,7 +317,7 @@ public class ZxtMediaPlayer {
 
         public void positionChanged(int position) {
             log.fine("Position Changed event received: " + position);
-            synchronized (ZxtMediaPlayer.this) {
+            synchronized (MOSMediaPlayer.this) {
                 currentPositionInfo = new PositionInfo(1, currentMediaInfo.getMediaDuration(),
                         currentMediaInfo.getCurrentURI(), ModelUtil.toTimeString(position/1000),
                         ModelUtil.toTimeString(position/1000));
@@ -321,7 +326,7 @@ public class ZxtMediaPlayer {
 
         public void durationChanged(int duration) {
             log.fine("Duration Changed event received: " + duration);
-            synchronized (ZxtMediaPlayer.this) {
+            synchronized (MOSMediaPlayer.this) {
                 String newValue = ModelUtil.toTimeString(duration/1000);
                 currentMediaInfo = new MediaInfo(currentMediaInfo.getCurrentURI(), "",
                         new UnsignedIntegerFourBytes(1), newValue, StorageMedium.NETWORK);
@@ -340,7 +345,56 @@ public class ZxtMediaPlayer {
         Log.i(TAG, "getVolume " + v);
         return v;
     }
-    
+
+    public String getPackages() {
+        final int max = BaseApplication.apps.size();
+        for (int i = 0; i < max; i++) {
+            PInfo p = BaseApplication.apps.get(i);
+            Log.d(TAG, "get package name = " + p.getAppname());
+        }
+        String jstring = new Gson().toJson(BaseApplication.apps);
+        return jstring;
+    }
+
+
+    public String getCommand() {
+        Log.i(TAG, "getCommand " + command);
+        return command;
+    }
+
+    public void setCommand(String command) {
+        Log.i(TAG, "setCommand " + command);
+        this.command = command;
+        checkPackage(command);
+    }
+
+    private void checkPackage(String msg) {
+        final int max = BaseApplication.apps.size();
+        for (int i = 0; i < max; i++) {
+            PInfo p = BaseApplication.apps.get(i);
+            Log.d(TAG, "compare package name = " + p.getAppname() + " message = " + msg);
+            if(msg.toLowerCase().contains(p.getAppname().toLowerCase())) {
+                execute(p);
+                break;
+            }
+        }
+        return;
+    }
+
+    private void execute(PInfo p) {
+        Log.d(TAG, "execute =" + p.getAppname());
+
+        String packagename = p.getPName();
+        Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packagename);
+        if (intent != null) {
+            // We found the activity now start the activity
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
+        }
+        return;
+    }
+
+
     public void play() {
         Log.i(TAG,"play");
         sendBroadcastAction(Action.PLAY);

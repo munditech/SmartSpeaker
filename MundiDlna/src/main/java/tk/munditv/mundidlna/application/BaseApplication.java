@@ -7,8 +7,6 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import tk.munditv.mundidlna.dmp.ContentItem;
-import tk.munditv.mundidlna.dmp.DeviceItem;
 
 import org.fourthline.cling.android.AndroidUpnpService;
 import org.fourthline.cling.support.model.DIDLContent;
@@ -16,6 +14,11 @@ import org.fourthline.cling.support.model.DIDLContent;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import tk.munditv.mundidlna.dmp.ContentItem;
+import tk.munditv.mundidlna.dmp.DeviceItem;
+import tk.munditv.mundidlna.util.PInfo;
+import tk.munditv.mundidlna.util.Packages;
 
 public class BaseApplication extends Application {
 
@@ -36,6 +39,8 @@ public class BaseApplication extends Application {
 	public ArrayList<ContentItem> listVideo;
 
 	public ArrayList<ContentItem> listcontent;
+
+	public static ArrayList<PInfo> apps;
 
 	public HashMap<String, ArrayList<ContentItem>> map;
 
@@ -103,4 +108,9 @@ public class BaseApplication extends Application {
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
     }
+
+    public static void initApps(Context context) {
+		Packages pkg = new Packages(context);
+		apps = pkg.getPackages();
+	}
 }

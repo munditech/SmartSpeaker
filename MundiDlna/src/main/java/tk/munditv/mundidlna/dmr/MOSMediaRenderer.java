@@ -4,11 +4,6 @@ package tk.munditv.mundidlna.dmr;
 import android.content.Context;
 import android.util.Log;
 
-import tk.munditv.mundidlna.activity.SettingActivity;
-import tk.munditv.mundidlna.util.FileUtil;
-import tk.munditv.mundidlna.util.UpnpUtil;
-import tk.munditv.mundidlna.util.Utils;
-
 import org.fourthline.cling.binding.LocalServiceBinder;
 import org.fourthline.cling.binding.annotations.AnnotationLocalServiceBinder;
 import org.fourthline.cling.model.DefaultServiceManager;
@@ -35,7 +30,12 @@ import org.fourthline.cling.support.renderingcontrol.lastchange.RenderingControl
 import java.io.IOException;
 import java.util.Map;
 
-public class ZxtMediaRenderer {
+import tk.munditv.mundidlna.activity.SettingActivity;
+import tk.munditv.mundidlna.util.FileUtil;
+import tk.munditv.mundidlna.util.UpnpUtil;
+import tk.munditv.mundidlna.util.Utils;
+
+public class MOSMediaRenderer {
 
     public static final long LAST_CHANGE_FIRING_INTERVAL_MILLISECONDS = 500;
 
@@ -47,9 +47,9 @@ public class ZxtMediaRenderer {
     final protected LastChange avTransportLastChange = new LastChange(new AVTransportLastChangeParser());
     final protected LastChange renderingControlLastChange = new LastChange(new RenderingControlLastChangeParser());
 
-    final protected Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> mediaPlayers;
+    final protected Map<UnsignedIntegerFourBytes, MOSMediaPlayer> mediaPlayers;
 
-    final protected ServiceManager<ZxtConnectionManagerService> connectionManager;
+    final protected ServiceManager<MOSConnectionManagerService> connectionManager;
     final protected LastChangeAwareServiceManager<AVTransportService> avTransport;
     final protected LastChangeAwareServiceManager<AudioRenderingControl> renderingControl;
 
@@ -57,11 +57,11 @@ public class ZxtMediaRenderer {
 
    protected  Context mContext;
 
-    public ZxtMediaRenderer(int numberOfPlayers,Context context) {
+    public MOSMediaRenderer(int numberOfPlayers, Context context) {
          mContext = context;
 
         // This is the backend which manages the actual player instances
-        mediaPlayers = new ZxtMediaPlayers(
+        mediaPlayers = new MOSMediaPlayers(
                 numberOfPlayers,
                 context,
                 avTransportLastChange,
@@ -69,23 +69,23 @@ public class ZxtMediaRenderer {
         ) {
             // These overrides connect the player instances to the output/display
             @Override
-            protected void onPlay(ZxtMediaPlayer player) {
+            protected void onPlay(MOSMediaPlayer player) {
 //                getDisplayHandler().onPlay(player);
             }
 
             @Override
-            protected void onStop(ZxtMediaPlayer player) {
+            protected void onStop(MOSMediaPlayer player) {
 //                getDisplayHandler().onStop(player);
             }
         };
 
         // The connection manager doesn't have to do much, HTTP is stateless
-        LocalService connectionManagerService = binder.read(ZxtConnectionManagerService.class);
+        LocalService connectionManagerService = binder.read(MOSConnectionManagerService.class);
         connectionManager =
                 new DefaultServiceManager(connectionManagerService) {
                     @Override
                     protected Object createServiceInstance() throws Exception {
-                        return new ZxtConnectionManagerService();
+                        return new MOSConnectionManagerService();
                     }
                 };
         connectionManagerService.setManager(connectionManager);
@@ -178,12 +178,12 @@ public class ZxtMediaRenderer {
     }
 
 
-    synchronized public Map<UnsignedIntegerFourBytes, ZxtMediaPlayer> getMediaPlayers() {
+    synchronized public Map<UnsignedIntegerFourBytes, MOSMediaPlayer> getMediaPlayers() {
         return mediaPlayers;
     }
 
     synchronized public void stopAllMediaPlayers() {
-        for (ZxtMediaPlayer mediaPlayer : mediaPlayers.values()) {
+        for (MOSMediaPlayer mediaPlayer : mediaPlayers.values()) {
             TransportState state =
                 mediaPlayer.getCurrentTransportInfo().getCurrentTransportState();
             if (!state.equals(TransportState.NO_MEDIA_PRESENT) ||
@@ -194,7 +194,7 @@ public class ZxtMediaRenderer {
         }
     }
 
-    public ServiceManager<ZxtConnectionManagerService> getConnectionManager() {
+    public ServiceManager<MOSConnectionManagerService> getConnectionManager() {
         return connectionManager;
     }
 

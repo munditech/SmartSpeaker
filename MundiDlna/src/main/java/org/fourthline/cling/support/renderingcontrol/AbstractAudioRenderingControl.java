@@ -31,8 +31,10 @@ import org.fourthline.cling.support.lastchange.LastChangeDelegator;
 import org.fourthline.cling.support.model.Channel;
 import org.fourthline.cling.support.model.PresetName;
 import org.fourthline.cling.support.model.VolumeDBRange;
+import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelCommand;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelLoudness;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelMute;
+import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelPackages;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelVolume;
 import org.fourthline.cling.support.renderingcontrol.lastchange.ChannelVolumeDB;
 import org.fourthline.cling.support.renderingcontrol.lastchange.RenderingControlLastChangeParser;
@@ -57,6 +59,14 @@ import java.beans.PropertyChangeSupport;
                 name = "Mute",
                 sendEvents = false,
                 datatype = "boolean"),
+        @UpnpStateVariable(
+                name = "Command",
+                sendEvents = false,
+                datatype = "string"),
+        @UpnpStateVariable(
+                name = "Packages",
+                sendEvents = false,
+                datatype = "string"),
         @UpnpStateVariable(
                 name = "Volume",
                 sendEvents = false,
@@ -126,6 +136,8 @@ public abstract class AbstractAudioRenderingControl implements LastChangeDelegat
             lc.setEventedValue(
                     instanceId,
                     new RenderingControlVariable.Mute(new ChannelMute(channel, getMute(instanceId, channelString))),
+                    new RenderingControlVariable.Command(new ChannelCommand(channel, getCommand(instanceId, channelString))),
+                    new RenderingControlVariable.Packages(new ChannelPackages(channel, getPackages(instanceId, channelString))),
                     new RenderingControlVariable.Loudness(new ChannelLoudness(channel, getLoudness(instanceId, channelString))),
                     new RenderingControlVariable.Volume(new ChannelVolume(channel, getVolume(instanceId, channelString).getValue().intValue())),
                     new RenderingControlVariable.VolumeDB(new ChannelVolumeDB(channel, getVolumeDB(instanceId, channelString))),
@@ -160,6 +172,19 @@ public abstract class AbstractAudioRenderingControl implements LastChangeDelegat
     public abstract void setMute(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
                                  @UpnpInputArgument(name = "Channel") String channelName,
                                  @UpnpInputArgument(name = "DesiredMute", stateVariable = "Mute") boolean desiredMute) throws RenderingControlException;
+
+    @UpnpAction(out = @UpnpOutputArgument(name = "CurrentCommand", stateVariable = "Command"))
+    public abstract String getCommand(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
+                                    @UpnpInputArgument(name = "Channel") String channelName) throws RenderingControlException;
+
+    @UpnpAction(out = @UpnpOutputArgument(name = "CurrentPackages", stateVariable = "Packages"))
+    public abstract String getPackages(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
+                                      @UpnpInputArgument(name = "Channel") String channelName) throws RenderingControlException;
+
+    @UpnpAction
+    public abstract void setCommand(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
+                                 @UpnpInputArgument(name = "Channel") String channelName,
+                                 @UpnpInputArgument(name = "DesiredCommand", stateVariable = "Command") String desiredCommand) throws RenderingControlException;
 
     @UpnpAction(out = @UpnpOutputArgument(name = "CurrentVolume", stateVariable = "Volume"))
     public abstract UnsignedIntegerTwoBytes getVolume(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,

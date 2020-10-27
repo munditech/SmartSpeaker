@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import tk.munditv.mundidlna.R;
 import tk.munditv.mundidlna.dmp.DeviceItem;
-
-import java.util.ArrayList;
 
 public class DevicesAdapter extends BaseAdapter {
     private static final String TAG = "DevicesAdapter";

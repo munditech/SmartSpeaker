@@ -10,11 +10,11 @@ import java.util.logging.Logger;
 /**
  * @author zxt
  */
-public class ZxtConnectionManagerService extends ConnectionManagerService {
+public class MOSConnectionManagerService extends ConnectionManagerService {
 
-    final private static Logger log = Logger.getLogger(ZxtConnectionManagerService.class.getName());
+    final private static Logger log = Logger.getLogger(MOSConnectionManagerService.class.getName());
 
-    public ZxtConnectionManagerService() {
+    public MOSConnectionManagerService() {
 
         sinkProtocolInfo.add(new ProtocolInfo(MimeType.valueOf("image/jpeg")));
         sinkProtocolInfo.add(new ProtocolInfo(MimeType.valueOf("image/png")));
