@@ -1,20 +1,26 @@
 
 package tk.munditv.mundidlna.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import tk.munditv.mundidlna.R;
 import tk.munditv.mundidlna.application.BaseApplication;
@@ -37,6 +43,8 @@ public class StartActivity extends Activity {
     public static final int GET_IP_FAIL = 0;
 
     public static final int GET_IP_SUC = 1;
+
+    public static final int WriteExternalStorageRequestCode = 1;
 
     private Context mContext;
 
@@ -83,12 +91,38 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_lay);
         mContext = this;
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+
         createFolder();
         getVideoFilePaths();
         createVideoThumb();
         getIp();
     }
 
+    private void checkPermission(String permission) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        WriteExternalStorageRequestCode);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        WriteExternalStorageRequestCode);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == WriteExternalStorageRequestCode && grantResults.length > 0 ) {
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                Toast.makeText(this,"Permission Granted",Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void createFolder() {
         FileUtil.createSDCardDir(true);
