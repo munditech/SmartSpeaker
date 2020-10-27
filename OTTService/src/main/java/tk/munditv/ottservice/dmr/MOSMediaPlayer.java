@@ -26,9 +26,11 @@ import org.fourthline.cling.support.renderingcontrol.lastchange.RenderingControl
 import java.net.URI;
 import java.util.logging.Logger;
 
+import tk.munditv.ottservice.application.BaseApplication;
 import tk.munditv.ottservice.dmp.GPlayer;
 import tk.munditv.ottservice.dmp.GPlayer.MediaListener;
 import tk.munditv.ottservice.util.Action;
+import tk.munditv.ottservice.util.PInfo;
 
 /**
  * @author offbye
@@ -351,16 +353,35 @@ public class MOSMediaPlayer {
     public void setCommand(String command) {
         Log.i(TAG, "setCommand " + command);
         this.command = command;
+        checkPackage(command);
+    }
 
-        if (command.toLowerCase().contains("youtube")) {
-            Intent intent = mContext.getPackageManager()
-                    .getLaunchIntentForPackage("com.google.android.youtube");
+    private void checkPackage(String msg) {
+        final int max = BaseApplication.apps.size();
+        for (int i = 0; i < max; i++) {
+            PInfo p = BaseApplication.apps.get(i);
+            Log.d(TAG, "compare package name = " + p.getAppname() + " message = " + msg);
+            if(msg.toLowerCase().contains(p.getAppname().toLowerCase())) {
+                execute(p);
+                break;
+            }
+        }
+        return;
+    }
 
+    private void execute(PInfo p) {
+        Log.d(TAG, "execute =" + p.getAppname());
+
+        String packagename = p.getPName();
+        Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packagename);
+        if (intent != null) {
+            // We found the activity now start the activity
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
         }
-
+        return;
     }
+
 
     public void play() {
         Log.i(TAG,"play");

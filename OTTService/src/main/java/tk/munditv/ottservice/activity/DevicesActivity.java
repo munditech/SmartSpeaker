@@ -213,6 +213,9 @@ public class DevicesActivity extends Activity {
 				}
 			}
 		});
+
+		BaseApplication.initApps(this);
+
 	}
 
 	@Override

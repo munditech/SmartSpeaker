@@ -17,6 +17,8 @@ import java.util.HashMap;
 
 import tk.munditv.ottservice.dmp.ContentItem;
 import tk.munditv.ottservice.dmp.DeviceItem;
+import tk.munditv.ottservice.util.PInfo;
+import tk.munditv.ottservice.util.Packages;
 
 public class BaseApplication extends Application {
 
@@ -37,6 +39,8 @@ public class BaseApplication extends Application {
 	public ArrayList<ContentItem> listVideo;
 
 	public ArrayList<ContentItem> listcontent;
+
+	public static ArrayList<PInfo> apps;
 
 	public HashMap<String, ArrayList<ContentItem>> map;
 
@@ -104,4 +108,9 @@ public class BaseApplication extends Application {
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
     }
+
+    public static void initApps(Context context) {
+		Packages pkg = new Packages(context);
+		apps = pkg.getPackages();
+	}
 }
