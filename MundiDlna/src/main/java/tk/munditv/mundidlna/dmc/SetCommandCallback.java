@@ -32,7 +32,7 @@ public class SetCommandCallback extends SetCommand {
         Message localMessage = new Message();
         localMessage.what = DMCControlMessage.SETCOMMANDSUC;
         Bundle localBundle = new Bundle();
-        localBundle.putString("mute", desiredCommand);
+        localBundle.putString("command", desiredCommand);
         localMessage.setData(localBundle);
         this.handler.sendMessage(localMessage);
     }

@@ -13,10 +13,13 @@ import org.fourthline.cling.model.meta.Device;
 import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.model.types.UDAServiceType;
 
+import java.util.ArrayList;
+
 import tk.munditv.mundidlna.R;
 import tk.munditv.mundidlna.activity.ControlActivity;
 import tk.munditv.mundidlna.dmp.DeviceItem;
 import tk.munditv.mundidlna.util.Action;
+import tk.munditv.mundidlna.util.PInfo;
 
 public class DMCControl {
 
@@ -46,7 +49,9 @@ public class DMCControl {
 
 	public boolean isMute = false;
 
-	public String commandString = null;
+	public String commandString;
+
+	public String packagesString;
 
 	private String metaData;
 
@@ -197,7 +202,6 @@ public class DMCControl {
 
 			case DMCControlMessage.GETCOMMAND: {
 				DMCControl.this.commandString = msg.getData().getString("command");
-				getCommand();
 				break;
 			}
 
@@ -213,15 +217,21 @@ public class DMCControl {
 				break;
 			}
 
+			case DMCControlMessage.GETPACKAGES: {
+				Log.d("DMCControl", "mHandle msg.what = GETPACKAGES");
+				DMCControl.this.packagesString = msg.getData().getString("packages");
+				setPackageList();
+				break;
+			}
 
 			}
 		}
 	};
 
 	public DMCControl(Activity paramActivity, int paramInt,
-			DeviceItem paramDeviceItem,
-			AndroidUpnpService paramAndroidUpnpService, String paramString1,
-			String paramString2) {
+                      DeviceItem paramDeviceItem,
+                      AndroidUpnpService paramAndroidUpnpService, String paramString1,
+                      String paramString2) {
 		this.activity = paramActivity;
 		this.controlType = paramInt;
 		this.executeDeviceItem = paramDeviceItem;
@@ -313,7 +323,21 @@ public class DMCControl {
 			if (localService != null) {
 				this.upnpService.getControlPoint().execute(
 						new GetCommandCallback(localService, mHandle));
-			} else {
+			}
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+	}
+
+	public void getPackages() {
+		Log.d("DMCControl", "getPackages()");
+
+		try {
+			Service localService = this.executeDeviceItem.getDevice()
+					.findService(new UDAServiceType("RenderingControl"));
+			if (localService != null) {
+				this.upnpService.getControlPoint().execute(
+						new GetPackagesCallback(localService, mHandle));
 			}
 		} catch (Exception localException) {
 			localException.printStackTrace();
@@ -496,7 +520,7 @@ public class DMCControl {
 		}
 	}
 
-	public void setCommand(String command) {
+	public void setCommand(String paramString) {
 		try {
 			Service localService = this.executeDeviceItem.getDevice()
 					.findService(new UDAServiceType("RenderingControl"));
@@ -504,7 +528,7 @@ public class DMCControl {
 				ControlPoint localControlPoint = this.upnpService
 						.getControlPoint();
 				localControlPoint.execute(new SetCommandCallback(localService,
-						command, mHandle));
+						paramString, mHandle));
 			} else {
 				Log.e("null", "null");
 			}
@@ -516,6 +540,14 @@ public class DMCControl {
 	public void setMuteToActivity(boolean paramBoolean) {
 		if (activity instanceof ControlActivity) {
 			((ControlActivity) activity).setVideoRemoteMuteState(paramBoolean);
+		}
+	}
+
+	public void setPackageList() {
+		Log.d("DMCControl", "setPackageList()");
+
+		if (activity instanceof ControlActivity) {
+			((ControlActivity) activity).setPackageList(this.packagesString);
 		}
 	}
 

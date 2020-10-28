@@ -16,7 +16,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 
 import tk.munditv.mundidlna.R;
 import tk.munditv.mundidlna.application.BaseApplication;
@@ -24,6 +26,8 @@ import tk.munditv.mundidlna.dmc.DMCControl;
 import tk.munditv.mundidlna.dmp.ContentItem;
 import tk.munditv.mundidlna.dmp.DeviceItem;
 import tk.munditv.mundidlna.util.Action;
+import tk.munditv.mundidlna.util.AppListAdapter;
+import tk.munditv.mundidlna.util.PInfo;
 import tk.munditv.mundidlna.util.Utils;
 
 import org.fourthline.cling.android.AndroidUpnpService;
@@ -64,6 +68,12 @@ public class ControlActivity extends Activity implements OnClickListener {
 	private boolean isToMute = true;
 
 	private boolean isUpdatePlaySeek = true;
+
+	private RecyclerView mAppsView;
+
+	private AppListAdapter mAppListAdapter;
+
+	private ArrayList<PInfo> appList;
 
 	public ArrayList<ContentItem> listcontent;
 
@@ -140,6 +150,9 @@ public class ControlActivity extends Activity implements OnClickListener {
 	}
 
 	private void initView() {
+		Log.d("ControlActivity", "initView()");
+
+		mAppsView = (RecyclerView) findViewById(R.id.app_list);
 		mNameTitle = (TextView) findViewById(R.id.media_tv_title);
 		mAuthorName = (TextView) findViewById(R.id.media_tv_author);
 
@@ -159,9 +172,33 @@ public class ControlActivity extends Activity implements OnClickListener {
 
 		mSeekBar = (SeekBar) findViewById(R.id.media_seekBar);
 		mSeekBar.setOnSeekBarChangeListener(new PlaySeekBarListener());
+
+		dmrDeviceItem = BaseApplication.dmrDeviceItem;
+		upnpService = BaseApplication.upnpService;
+		dmcControl = new DMCControl(this, 3, dmrDeviceItem,
+				this.upnpService, this.path, this.metaData);
+		dmcControl.getProtocolInfos(currentContentFormatMimeType);
+		dmcControl.getPackages();
+	}
+
+	public void setPackageList(String packageListString) {
+		Log.d("ControlActivity", "setPackageList()");
+
+		appList = new Gson().fromJson(packageListString, ArrayList.class);
+		mAppListAdapter = new AppListAdapter(this, appList);
+		mAppsView.setAdapter(mAppListAdapter);
+		mAppListAdapter.setOnItemClickListener(new AppListAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, PInfo tag) {
+				String appname = "[app]:" + tag.getAppname();
+				dmcControl.setCommand(appname);
+			}
+		});
+		mAppListAdapter.notifyDataSetChanged();
 	}
 
 	private void initData(Intent localIntent) {
+		Log.d("ControlActivity", "initData()");
 		if (null == localIntent) {
 			Toast.makeText(this, getString(R.string.not_select_dev),
 					Toast.LENGTH_SHORT).show();
@@ -189,6 +226,7 @@ public class ControlActivity extends Activity implements OnClickListener {
 			dmcControl = new DMCControl(this, 3, dmrDeviceItem,
 					this.upnpService, this.path, this.metaData);
 			dmcControl.getProtocolInfos(currentContentFormatMimeType);
+			dmcControl.getPackages();
 		} else {
 			Toast.makeText(this, getString(R.string.get_data_err),
 					Toast.LENGTH_SHORT).show();

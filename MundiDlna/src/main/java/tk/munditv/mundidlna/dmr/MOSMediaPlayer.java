@@ -40,7 +40,7 @@ public class MOSMediaPlayer {
 
     final private static Logger log = Logger.getLogger(MOSMediaPlayer.class.getName());
 
-    private static final String TAG = "MundiMediaPlayer";
+    private static final String TAG = "MOSMediaPlayer";
 
     final private UnsignedIntegerFourBytes instanceId;
     final private LastChange avTransportLastChange;

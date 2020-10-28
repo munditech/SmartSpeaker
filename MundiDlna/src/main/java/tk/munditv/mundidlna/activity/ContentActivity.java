@@ -362,7 +362,7 @@ public class ContentActivity extends Activity {
 		public ContentAdapter(Context paramContext,
 				ArrayList<ContentItem> paramArrayList) {
 			this.mInflater = ((LayoutInflater) paramContext
-					.getSystemService("layout_inflater"));
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 			this.context = paramContext;
 			this.mDeviceItems = paramArrayList;
 			imageIcon = BitmapFactory.decodeResource(context.getResources(),
