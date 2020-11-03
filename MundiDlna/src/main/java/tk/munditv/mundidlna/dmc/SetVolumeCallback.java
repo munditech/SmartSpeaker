@@ -15,13 +15,13 @@ public class SetVolumeCallback extends SetVolume{
 
     public void failure(ActionInvocation paramActionInvocation, UpnpResponse paramUpnpResponse, String paramString)
     {
-      Log.e("set volume failed", "set volume failed");
+      Log.d("SetVolumeCallback", "set volume failed");
     }
 
     public void success(ActionInvocation paramActionInvocation)
     {
       super.success(paramActionInvocation);
-      Log.e("set volume success", "set volume success");
+      Log.d("SetVolumeCallback", "set volume success");
     }
 
 }

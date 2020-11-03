@@ -26,16 +26,18 @@ public class GetProtocolInfoCallback extends GetProtocolInfo {
 		super(paramService, paramControlPoint);
 		this.requestPlayMimeType = paramString;
 		this.handler = paramHandler;
+		Log.d("GetProtocolInfoCallback", "GetProtocolInfoCallback()");
 	}
 
 	public void failure(ActionInvocation paramActionInvocation,
 			UpnpResponse paramUpnpResponse, String paramString) {
-		Log.e("DMC", "GetProtocolInfo  failure");
+		Log.e("GetProtocolInfoCallback", "GetProtocolInfo  failure");
 		this.handler.sendEmptyMessage(DMCControlMessage.CONNECTIONFAILED);
 	}
 
 	public void received(ActionInvocation paramActionInvocation,
 			ProtocolInfos paramProtocolInfos1, ProtocolInfos paramProtocolInfos2) {
+		Log.d("GetProtocolInfoCallback", "received()");
 		this.handler.sendEmptyMessage(DMCControlMessage.CONNECTIONSUCESSED);
 		// TODO
 

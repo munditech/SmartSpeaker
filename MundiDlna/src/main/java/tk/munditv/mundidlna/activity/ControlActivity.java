@@ -175,10 +175,13 @@ public class ControlActivity extends Activity implements OnClickListener {
 
 		dmrDeviceItem = BaseApplication.dmrDeviceItem;
 		upnpService = BaseApplication.upnpService;
+		Log.d(TAG, "dmrDevice = " + dmrDeviceItem.getDevice().getDisplayString());
 		dmcControl = new DMCControl(this, 3, dmrDeviceItem,
 				this.upnpService, this.path, this.metaData);
-		dmcControl.getProtocolInfos(currentContentFormatMimeType);
-		dmcControl.getPackages();
+		if (dmcControl != null) {
+			dmcControl.getProtocolInfos(currentContentFormatMimeType);
+			dmcControl.getPackages();
+		}
 	}
 
 	public void setPackageList(String packageListString) {
@@ -223,6 +226,7 @@ public class ControlActivity extends Activity implements OnClickListener {
 
 			dmrDeviceItem = BaseApplication.dmrDeviceItem;
 			upnpService = BaseApplication.upnpService;
+			Log.d(TAG, "initData dmrDevice = " + dmrDeviceItem.getDevice().getDisplayString());
 			dmcControl = new DMCControl(this, 3, dmrDeviceItem,
 					this.upnpService, this.path, this.metaData);
 			dmcControl.getProtocolInfos(currentContentFormatMimeType);
@@ -254,6 +258,7 @@ public class ControlActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.media_iv_play: {
 			playPause();
+			dmcControl.getPackages();
 			break;
 		}
 		case R.id.media_iv_voc_plus: {

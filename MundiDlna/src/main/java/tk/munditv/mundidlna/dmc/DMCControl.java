@@ -71,6 +71,7 @@ public class DMCControl {
 
 		@Override
 		public void handleMessage(Message msg) {
+			Log.d("DMCControl", "handleMessage() msg.what =" + msg.what);
 
 			switch (msg.what) {
 
@@ -238,6 +239,8 @@ public class DMCControl {
 		this.upnpService = paramAndroidUpnpService;
 		this.uriString = paramString1;
 		this.metaData = paramString2;
+		Log.d("DMCConreol", "param1 = " + paramString1);
+		Log.d("DMCConreol", "param1 = " + paramString1);
 	}
 
 	private void setPlayErrorMessage() {
@@ -331,7 +334,6 @@ public class DMCControl {
 
 	public void getPackages() {
 		Log.d("DMCControl", "getPackages()");
-
 		try {
 			Service localService = this.executeDeviceItem.getDevice()
 					.findService(new UDAServiceType("RenderingControl"));
@@ -360,6 +362,7 @@ public class DMCControl {
 	}
 
 	public void getProtocolInfos(String paramString) {
+		Log.d("DMCControl", "getProtocolInfos()");
 		try {
 			Service localService = this.executeDeviceItem.getDevice()
 					.findService(new UDAServiceType("ConnectionManager"));

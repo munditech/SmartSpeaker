@@ -40,9 +40,9 @@ public class GetTransportInfoCallback extends GetTransportInfo {
 
     @Override
     public void received(ActionInvocation paramActionInvocation, TransportInfo paramTransportInfo) {
-        Log.e("GetTransportInfoCallback", "" + paramTransportInfo.getCurrentTransportState());
-        Log.e("GetTransportInfoCallback", "" + paramTransportInfo.getCurrentTransportStatus());
-        Log.e("isOnlyGetState", Boolean.toString(this.isOnlyGetState));
+        Log.d("GetTransportInfoCallback", "" + paramTransportInfo.getCurrentTransportState());
+        Log.d("GetTransportInfoCallback", "" + paramTransportInfo.getCurrentTransportStatus());
+        Log.d("isOnlyGetState", Boolean.toString(this.isOnlyGetState));
         handler.sendEmptyMessage(DMCControlMessage.SETURL);
         
         //TODO

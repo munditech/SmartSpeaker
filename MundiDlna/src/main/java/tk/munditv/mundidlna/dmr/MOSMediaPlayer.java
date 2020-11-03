@@ -347,12 +347,14 @@ public class MOSMediaPlayer {
     }
 
     public String getPackages() {
+        Log.i(TAG, "getPackages()");
         final int max = BaseApplication.apps.size();
         for (int i = 0; i < max; i++) {
             PInfo p = BaseApplication.apps.get(i);
             Log.d(TAG, "get package name = " + p.getAppname());
         }
         String jstring = new Gson().toJson(BaseApplication.apps);
+        Log.d(TAG, "jstring = " + jstring);
         return jstring;
     }
 
